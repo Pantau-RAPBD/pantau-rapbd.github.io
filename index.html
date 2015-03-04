@@ -19,6 +19,8 @@
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="js/ie-emulation-modes-warning.js"></script>
     <script src="js/angular.min.js"></script>
+    <script src="js/underscore.min.js"></script>
+    <script src="js/controllers/index-controller.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -27,7 +29,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body ng-app="myApp" ng-controller="IndexCtrl">
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
@@ -51,9 +53,14 @@
 
     <div class="container">
 
-      <div class="starter-template">
-        <h1>Bootstrap starter template</h1>
-        <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+      <div>
+        <table class="table table-condensed table-striped" style="width:1800px" ng-cloak>
+          <tr ng-repeat="budget in budgets | limitTo: 20">
+            <td ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]">
+              {{budget[i]}}
+            </td>
+          </tr>
+        </table>
       </div>
 
     </div><!-- /.container -->

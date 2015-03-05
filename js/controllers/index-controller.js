@@ -33,7 +33,6 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
         });
       });
 
-      $scope.pageCount = Math.ceil(($scope.budgets.length * 1.0)/ $scope.pageSize);
       $scope.refreshDisplayedBudgets(false);
     }).
     error(function(data, status, headers, config) {
@@ -139,6 +138,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
       return res;
     });
 
+    $scope.pageCount = Math.ceil(($scope.filteredBudgets.length * 1.0)/ $scope.pageSize);
     $scope.displayedBudgets = $scope.filteredBudgets.slice($scope.currentPage * $scope.pageSize, $scope.currentPage * $scope.pageSize + $scope.pageSize);
   }
 

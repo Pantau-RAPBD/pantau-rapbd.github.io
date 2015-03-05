@@ -15,7 +15,6 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
-  console.log("here");
   $http.get('data.json').
     success(function(data, status, headers, config) {
       // console.log(data);

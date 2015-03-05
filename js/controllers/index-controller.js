@@ -10,7 +10,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.toBeReportedBudget = null;
   $scope.selectedReports = [];
   $scope.reportDescription = "";
-  $scope.sortCriteria = [0, 'asc'];
+  $scope.sortCriteria = [17, 'asc'];
   $scope.headers = ["No", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Nama Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");

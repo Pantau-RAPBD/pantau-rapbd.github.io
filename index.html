@@ -72,7 +72,10 @@
               <th class="with-left-border" colspan="4">Versi Pemda yang nama kegiatannya mirip</th>
             </tr>
             <tr style="background:#E8E8E8">
-              <th></th> 
+              <th>
+                Comments
+                <a href="#" ng-click="toggleSort(17)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != 17, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == 17,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == 17}"/></a>
+              </th> 
               <th ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}">
                 {{headers[$index]}}
                 <a href="#" ng-click="toggleSort($index)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != $index, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == $index,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == $index}"/></a>

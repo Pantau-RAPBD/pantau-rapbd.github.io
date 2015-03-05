@@ -84,10 +84,11 @@ app.controller("IndexCtrl", function($scope, $http) {
     console.log(budget);
     var myDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/budgets/' + budget[0]);
     console.log($scope.authData);
-    // var summaryDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/summaries/' + budget[0]);
     myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName, content: $scope.reportDescription});
-    // var curCount = summaryDataRef.get(0]})
-    // summaryDataRef.set({'id': budget[0]})
+    var reportsCountRef = new Firebase('https://vivid-torch-9223.firebaseio.com/reportsCount/' + budget[0] + "");
+    reportsCountRef.transaction(function (current_value) {
+      return (current_value || 0) + 1;
+    });
   }
 
   $scope.updateToBeReportedBudget = function(budget) {

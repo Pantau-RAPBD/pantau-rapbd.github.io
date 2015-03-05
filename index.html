@@ -79,6 +79,7 @@
               <th ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}">
                 {{headers[$index]}}
                 <a href="#" ng-click="toggleSort($index)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != $index, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == $index,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == $index}"/></a>
+                <input type="text" style="width:100%" ng-change="refreshDisplayedBudgets(false)" ng-model="filters[$index]"/>
               </th>
             </tr>
           </thead>

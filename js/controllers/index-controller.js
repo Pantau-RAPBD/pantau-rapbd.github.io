@@ -12,6 +12,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.reportDescription = "";
   $scope.sortCriteria = [17, 'asc'];
   $scope.headers = ["No", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Nama Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
+  $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
 
@@ -110,7 +111,6 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
           if (b[sortIndex] == null) return -b[0];
           var converted = parseFloat(b[sortIndex].replace(/,/g,""));
           if (isNaN(converted)) {
-             console.log("isNaN");
              return -b[0];
           }
           return converted;
@@ -124,7 +124,22 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
         $scope.budgets = $scope.budgets.reverse();
       }
     }
-    $scope.displayedBudgets = $scope.budgets.slice($scope.currentPage * $scope.pageSize, $scope.currentPage * $scope.pageSize + $scope.pageSize);
+
+    $scope.filteredBudgets = _.filter($scope.budgets, function(data) {
+      res = true;
+      for (var i = 16; i >= 0; i--) {
+        if ($scope.filters[i]) {
+          if (data[i]) {
+            res = res & (data[i].toLowerCase().indexOf($scope.filters[i].toLowerCase()) != -1);
+          } else {
+            res = false;
+          }
+        }
+      }
+      return res;
+    });
+
+    $scope.displayedBudgets = $scope.filteredBudgets.slice($scope.currentPage * $scope.pageSize, $scope.currentPage * $scope.pageSize + $scope.pageSize);
   }
 
   $scope.report = function(budget) {

@@ -1,3 +1,7 @@
 body {
   padding-top: 80px;
 }
+
+.with-left-border {
+  border-left: 1px solid #cdd0d4;
+}

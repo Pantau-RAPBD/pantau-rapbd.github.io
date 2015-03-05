@@ -105,6 +105,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
 
       var myDataRef = ref.child("budgets/" + budget[0]);
       myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName, content: $scope.reportDescription});
+      $scope.reportDescription = "";
 
       var reportsCountRef = ref.child('reportsCount/' + budget[0]);
       reportsCountRef.transaction(function (current_value) {

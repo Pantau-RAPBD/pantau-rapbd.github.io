@@ -54,7 +54,7 @@
     <div class="container-fluid">
 
       <div>
-        <nav>
+        <nav ng-cloak>
           <ul class="pager">
             <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Previous</a></li>
             Page {{currentPage + 1}}/{{pageCount}}
@@ -92,7 +92,7 @@
             </tr>
           </tbody>
         </table>
-        <nav>
+        <nav ng-cloak>
           <ul class="pager">
             <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Previous</a></li>
             Page {{currentPage + 1}}/{{pageCount}}

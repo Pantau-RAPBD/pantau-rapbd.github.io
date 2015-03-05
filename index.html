@@ -59,6 +59,8 @@
             <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Previous</a></li>
             Page {{currentPage + 1}}/{{pageCount}}
             <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Next</a></li>
+            <input style="margin-left:20px; width:60px" type="text" placeholder="Page no" ng-model="goToPageNo"/>
+            <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Go</buton>
           </ul>
         </nav>
         <table class="table table-condensed table-striped" style="width:1800px" ng-cloak>

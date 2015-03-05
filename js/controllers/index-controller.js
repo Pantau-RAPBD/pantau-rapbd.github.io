@@ -20,7 +20,7 @@ app.controller("IndexCtrl", function($scope, $http) {
 
   $scope.goToPrevPage = function() {
     if ($scope.currentPage > 0) {
-      $scope.currentPage--;
+      $scope.currentPage--;      
       $scope.refreshDisplayedBudgets();
     }
   }
@@ -30,6 +30,12 @@ app.controller("IndexCtrl", function($scope, $http) {
       $scope.currentPage++;
       $scope.refreshDisplayedBudgets();
     }
+  }
+
+  $scope.goToPage = function() {
+    console.log($scope.currentPage);
+    $scope.currentPage = $scope.goToPageNo - 1;
+    $scope.refreshDisplayedBudgets();
   }
 
   $scope.refreshDisplayedBudgets = function() {

@@ -10,6 +10,8 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.toBeReportedBudget = null;
   $scope.selectedReports = [];
   $scope.reportDescription = "";
+  $scope.sortCriteria = [0, 'asc'];
+  $scope.headers = ["No", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Nama Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
 
@@ -31,7 +33,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
       });
 
       $scope.pageCount = Math.ceil(($scope.budgets.length * 1.0)/ $scope.pageSize);
-      $scope.refreshDisplayedBudgets();
+      $scope.refreshDisplayedBudgets(false);
     }).
     error(function(data, status, headers, config) {
       // log error
@@ -78,24 +80,50 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.goToPrevPage = function() {
     if ($scope.currentPage > 0) {
       $scope.currentPage--;      
-      $scope.refreshDisplayedBudgets();
+      $scope.refreshDisplayedBudgets(false);
     }
   }
 
   $scope.goToNextPage = function() {
     if ($scope.currentPage < $scope.pageCount) {
       $scope.currentPage++;
-      $scope.refreshDisplayedBudgets();
+      $scope.refreshDisplayedBudgets(false);
     }
   }
 
   $scope.goToPage = function() {
     console.log($scope.currentPage);
     $scope.currentPage = $scope.goToPageNo - 1;
-    $scope.refreshDisplayedBudgets();
+    $scope.refreshDisplayedBudgets(false);
   }
 
-  $scope.refreshDisplayedBudgets = function() {
+  $scope.refreshDisplayedBudgets = function(reverseOnly) {
+    if (reverseOnly) {
+      $scope.budgets = $scope.budgets.reverse();
+    } else {
+      var numTypeColumns = [0, 6, 7, 8, 9, 10, 11, 14, 15, 16];
+      var needToConvertToInt = _.contains(numTypeColumns, $scope.sortCriteria[0])
+
+      var sortIndex = $scope.sortCriteria[0]
+      $scope.budgets = _.sortBy($scope.budgets, function(b) { 
+        if (needToConvertToInt) {
+          if (b[sortIndex] == null) return -b[0];
+          var converted = parseFloat(b[sortIndex].replace(/,/g,""));
+          if (isNaN(converted)) {
+             console.log("isNaN");
+             return -b[0];
+          }
+          return converted;
+        } else {
+          if (b[sortIndex] == null) return "";
+          return b[sortIndex];
+        }
+      });
+
+      if ($scope.sortCriteria[1] == 'desc') {
+        $scope.budgets = $scope.budgets.reverse();
+      }
+    }
     $scope.displayedBudgets = $scope.budgets.slice($scope.currentPage * $scope.pageSize, $scope.currentPage * $scope.pageSize + $scope.pageSize);
   }
 
@@ -134,5 +162,18 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
 
   $scope.updateToBeReportedBudget = function(budget) {
     $scope.toBeReportedBudget = budget;
+  }
+
+  $scope.toggleSort = function(index) {
+    var nextStates = {'asc': 'desc', 'desc': 'asc'};
+    var reverseOnly = false;
+    if ($scope.sortCriteria[0] == index) {
+      $scope.sortCriteria[1] = nextStates[$scope.sortCriteria[1]];
+      reverseOnly = true;
+    } else {
+      $scope.sortCriteria[0] = index;
+      $scope.sortCriteria[1] = 'asc';
+    }
+    $scope.refreshDisplayedBudgets(reverseOnly);
   }
 });

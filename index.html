@@ -63,35 +63,20 @@
             <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Go</buton>
           </ul>
         </nav>
-        <table class="table table-condensed table-striped" style="width:1800px" ng-cloak>
+        <table class="table table-condensed table-striped" style="width:2000px" ng-cloak>
           <thead>
             <tr style="background:#B8B8B8">
               <th></th>
               <th class="with-left-border" colspan="10">Versi DPRD</th>
               <th class="with-left-border" colspan="3">Versi Pemda</th>
-              <th class="with-left-border" colspan="4">Versi Pemda yang mirip</th>
+              <th class="with-left-border" colspan="4">Versi Pemda yang nama kegiatannya mirip</th>
             </tr>
             <tr style="background:#E8E8E8">
               <th></th> 
-              <th class="with-left-border">No</th>
-              <th>Kode SKPD</th>
-              <th>Nama SKPD</th>
-              <th>Komisi</th>
-              <th>Kode Kegiatan</th>
-              <th>Nama Kegiatan</th>
-              <th>Pagu</th>
-              <th>Tambah</th>
-              <th>Kurang</th>
-              <th>Hasil Pembahasan</th>
-
-              <th class="with-left-border">Hasil</th>
-              <th>Selisih dengan versi DPRD</th>
-              <th>Flag</th>
-
-              <th class="with-left-border">Nama Kegiatan</th>
-              <th>% kemiripan</th>
-              <th>Hasil</th>
-              <th>Selisih dengan versi DPRD</th>
+              <th ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}">
+                {{headers[$index]}}
+                <a href="#" ng-click="toggleSort($index)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != $index, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == $index,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == $index}"/></a>
+              </th>
             </tr>
           </thead>
           <tbody>

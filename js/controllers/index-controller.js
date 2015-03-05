@@ -41,4 +41,12 @@ app.controller("IndexCtrl", function($scope, $http) {
   $scope.refreshDisplayedBudgets = function() {
     $scope.displayedBudgets = $scope.budgets.slice($scope.currentPage * $scope.pageSize, $scope.currentPage * $scope.pageSize + $scope.pageSize);
   }
+
+  $scope.report = function(budget) {
+    var myDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/budgets/' + budget[0]);
+    // var summaryDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/summaries/' + budget[0]);
+    myDataRef.set({'id': budget[0]});
+    // var curCount = summaryDataRef.get(0]})
+    // summaryDataRef.set({'id': budget[0]})
+  }
 });

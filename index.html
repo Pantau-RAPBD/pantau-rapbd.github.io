@@ -54,13 +54,27 @@
     <div class="container">
 
       <div>
+        <nav>
+          <ul class="pager">
+            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Previous</a></li>
+            Page {{currentPage + 1}}/{{pageCount}}
+            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Next</a></li>
+          </ul>
+        </nav>
         <table class="table table-condensed table-striped" style="width:1800px" ng-cloak>
-          <tr ng-repeat="budget in budgets | limitTo: 20">
+          <tr ng-repeat="budget in displayedBudgets">
             <td ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]">
               {{budget[i]}}
             </td>
           </tr>
         </table>
+        <nav>
+          <ul class="pager">
+            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Previous</a></li>
+            Page {{currentPage + 1}}/{{pageCount}}
+            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Next</a></li>
+          </ul>
+        </nav>
       </div>
 
     </div><!-- /.container -->

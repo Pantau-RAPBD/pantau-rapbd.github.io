@@ -6,6 +6,7 @@ app.controller("IndexCtrl", function($scope, $http) {
   $scope.pageCount = 0;
   $scope.displayedBudgets = [];
   $scope.budgets = [];
+  $scope.authData = null;
 
   $http.get('data.json').
     success(function(data, status, headers, config) {
@@ -17,6 +18,40 @@ app.controller("IndexCtrl", function($scope, $http) {
     error(function(data, status, headers, config) {
       // log error
     });
+
+  $scope.isAuthenticated = function() {
+    var ref = new Firebase("https://vivid-torch-9223.firebaseio.com");
+    if ($scope.authData) return true;
+
+    var authData = ref.getAuth();
+    if (authData) {
+      $scope.authData = authData;
+      return true;
+    } else {
+      $scope.authData = authData;
+      return false;
+    }     
+  }
+
+  $scope.authenticate = function() {
+    console.log("authenticate");
+    var ref = new Firebase("https://vivid-torch-9223.firebaseio.com");
+    if (!$scope.isAuthenticated()) {
+      ref.authWithOAuthPopup("facebook", function authHandler(error, authData) {
+        if (error) {
+          console.log("Login Failed!", error);
+        } else {
+          console.log("Authenticated successfully with payload:", authData);
+          $scope.authData = authData;
+        }
+      });
+    }
+  }
+
+  $scope.unauthenticate = function() {
+    var ref = new Firebase("https://vivid-torch-9223.firebaseio.com");
+    ref.unauth();
+  }
 
   $scope.goToPrevPage = function() {
     if ($scope.currentPage > 0) {
@@ -43,9 +78,11 @@ app.controller("IndexCtrl", function($scope, $http) {
   }
 
   $scope.report = function(budget) {
+    $scope.authenticate();
     var myDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/budgets/' + budget[0]);
+    console.log($scope.authData);
     // var summaryDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/summaries/' + budget[0]);
-    myDataRef.set({'id': budget[0]});
+    myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName});
     // var curCount = summaryDataRef.get(0]})
     // summaryDataRef.set({'id': budget[0]})
   }

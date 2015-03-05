@@ -12,8 +12,10 @@ To run this, you just need to register on http://www.firebase.com to get your ow
 
     var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
 
-Finally, run any server to run the web app at http://localhost/, e.g.:
+Finally, run any HTTP server e.g.:
 
     git clone git@github.com:Pantau-RAPBD/pantau-rapbd.github.io.git
     cd pantau-rapbd.github.io.git
     python -m http.server
+    
+    #access http://localhost:8000

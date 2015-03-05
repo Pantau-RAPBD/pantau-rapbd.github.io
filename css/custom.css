@@ -5,3 +5,11 @@ body {
 .with-left-border {
   border-left: 1px solid #cdd0d4;
 }
+
+table{
+    table-layout: fixed;
+}
+
+th, td {
+    overflow: hidden;
+}

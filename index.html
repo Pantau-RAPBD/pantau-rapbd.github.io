@@ -74,8 +74,13 @@
             <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Go</buton>
           </ul>
         </nav>
-        <table class="table table-condensed table-striped" style="width:2000px" ng-cloak>
+        <table class="table table-condensed table-striped" style="width:2800px" ng-cloak>
           <thead>
+            <tr style="visibility:">
+              <th></th>
+              <th ng-repeat="header in headers track by $index" ng-style="{'width': headers_width[$index]}">
+              </th>
+            </tr>
             <tr style="background:#B8B8B8">
               <th></th>
               <th class="with-left-border" colspan="10">Versi DPRD</th>
@@ -87,7 +92,7 @@
                 Comments
                 <a href="#" ng-click="toggleSort(17)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != 17, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == 17,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == 17}"/></a>
               </th> 
-              <th ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}">
+              <th ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
                 {{headers[$index]}}
                 <a href="#" ng-click="toggleSort($index)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != $index, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == $index,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == $index}"/></a>
                 <input type="text" style="width:100%" ng-change="refreshDisplayedBudgets(false)" ng-model="filters[$index]"/>
@@ -101,7 +106,7 @@
                 <br/>
                 <small><a ng-click="showReports(budget)" href="#" ng-if="budget[17]">{{budget[17]}} comments</a></small>
               </td>
-              <td ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}">
+              <td ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
                 {{budget[i]}}
               </td>
             </tr>

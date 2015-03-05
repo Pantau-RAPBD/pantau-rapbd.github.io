@@ -8,12 +8,27 @@ app.controller("IndexCtrl", function($scope, $http) {
   $scope.budgets = [];
   $scope.authData = null;
   $scope.toBeReportedBudget = null;
+  $scope.selectedReports = [];
   $scope.reportDescription = "";
 
   $http.get('data.json').
     success(function(data, status, headers, config) {
       // console.log(data);
       $scope.budgets = _.rest(data);
+      var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/reportsCount");
+      ref.once("value", function(rc) {
+        var reportsCount = rc.val();
+        $scope.budgets = _.each($scope.budgets, function(budget) {
+          if (budget[0] in reportsCount) {
+            $scope.$apply(function() {
+              budget[17] = reportsCount[budget[0]];
+            })
+          } else {
+            budget.reportsCount = 0;
+          }
+        });
+      });
+
       $scope.pageCount = Math.ceil(($scope.budgets.length * 1.0)/ $scope.pageSize);
       $scope.refreshDisplayedBudgets();
     }).
@@ -81,14 +96,31 @@ app.controller("IndexCtrl", function($scope, $http) {
 
   $scope.report = function(budget) {
     $scope.authenticate();
-    console.log(budget);
     var myDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/budgets/' + budget[0]);
-    console.log($scope.authData);
     myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName, content: $scope.reportDescription});
-    var reportsCountRef = new Firebase('https://vivid-torch-9223.firebaseio.com/reportsCount/' + budget[0] + "");
+
+    var reportsCountRef = new Firebase('https://vivid-torch-9223.firebaseio.com/reportsCount/' + budget[0]);
     reportsCountRef.transaction(function (current_value) {
-      return (current_value || 0) + 1;
+      var res = (current_value || 0) + 1;
+      return res;
+    }, function(error, committed, snapshot) {
+      if (committed) {
+        $scope.$apply(function() {
+          budget[17] = snapshot.val();
+        });
+      }
     });
+  };
+
+  $scope.showReports = function(budget) {
+    var myDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/budgets/' + budget[0]);
+    myDataRef.once("value", function(data) {
+      console.log(data);
+      $scope.$apply(function() {
+        $scope.selectedReports = data.val(); 
+        $("#displayReportsModal").modal('show');
+      });
+    })
   }
 
   $scope.updateToBeReportedBudget = function(budget) {

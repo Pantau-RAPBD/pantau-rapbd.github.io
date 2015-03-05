@@ -15,7 +15,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
-
+  console.log("here");
   $http.get('data.json').
     success(function(data, status, headers, config) {
       // console.log(data);
@@ -35,6 +35,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
           $scope.refreshDisplayedBudgets(false);
         })
       });
+      $scope.refreshDisplayedBudgets(false);
     }).
     error(function(data, status, headers, config) {
       // log error
@@ -148,7 +149,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
       console.log("Uplaoding data...");
 
       var myDataRef = ref.child("budgets/" + budget[0]);
-      myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName, content: $scope.reportDescription});
+      myDataRef.push({user_id: $scope.authData.uid, name: $scope.authData.facebook.displayName, content: $scope.reportDescription});
       $scope.reportDescription = "";
 
       var reportsCountRef = ref.child('reportsCount/' + budget[0]);

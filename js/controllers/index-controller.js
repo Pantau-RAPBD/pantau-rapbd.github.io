@@ -10,7 +10,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.toBeReportedBudget = null;
   $scope.selectedReports = [];
   $scope.reportDescription = "";
-  $scope.sortCriteria = [17, 'asc'];
+  $scope.sortCriteria = [17, 'desc'];
   $scope.headers = ["No", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Nama Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
@@ -31,9 +31,10 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
             budget.reportsCount = 0;
           }
         });
+        $scope.$apply(function() {
+          $scope.refreshDisplayedBudgets(false);
+        })
       });
-
-      $scope.refreshDisplayedBudgets(false);
     }).
     error(function(data, status, headers, config) {
       // log error

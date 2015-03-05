@@ -98,7 +98,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="budget in displayedBudgets">
-              <td><button class="btn btn-danger btn-sm" ng-click="report(budget)">Report</button></td>
+              <td><button class="btn btn-danger btn-sm" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="updateToBeReportedBudget(budget)">Report</button></td>
               <td ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]">
                 {{budget[i]}}
               </td>
@@ -126,4 +126,20 @@
     <script src="js/ie10-viewport-bug-workaround.js"></script>
   
 
+    <div class="modal fade bs-example-modal-lg" id="reportModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" ng-click="reportDescription=''">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <b>New report</b>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Alasan Anda melaporkan ini</label>
+              <textarea class="form-control" rows="12" required ng-model="reportDescription"></textarea>
+            </div>
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bs-example-modal-lg" ng-click="report(toBeReportedBudget)">Submit</button></td>
+          </div>
+        </div>
+      </div>
+    </div>
 </body></html>

@@ -7,6 +7,8 @@ app.controller("IndexCtrl", function($scope, $http) {
   $scope.displayedBudgets = [];
   $scope.budgets = [];
   $scope.authData = null;
+  $scope.toBeReportedBudget = null;
+  $scope.reportDescription = "";
 
   $http.get('data.json').
     success(function(data, status, headers, config) {
@@ -79,11 +81,16 @@ app.controller("IndexCtrl", function($scope, $http) {
 
   $scope.report = function(budget) {
     $scope.authenticate();
+    console.log(budget);
     var myDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/budgets/' + budget[0]);
     console.log($scope.authData);
     // var summaryDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/summaries/' + budget[0]);
-    myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName});
+    myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName, content: $scope.reportDescription});
     // var curCount = summaryDataRef.get(0]})
     // summaryDataRef.set({'id': budget[0]})
+  }
+
+  $scope.updateToBeReportedBudget = function(budget) {
+    $scope.toBeReportedBudget = budget;
   }
 });

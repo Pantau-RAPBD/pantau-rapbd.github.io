@@ -1,6 +1,6 @@
 # Pantau RAPBD
 
-Technology used:
+Technologies used:
 
   - Plain HTML
   - AngularJS

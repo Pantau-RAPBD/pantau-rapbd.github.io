@@ -1,7 +1,7 @@
 var app = angular.module("myApp", []);
 
 app.controller("IndexCtrl", function($scope, $http, $q) {
-  $scope.pageSize = 20;
+  $scope.pageSize = 50;
   $scope.currentPage = 0;
   $scope.pageCount = 0;
   $scope.displayedBudgets = [];

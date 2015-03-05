@@ -1,6 +1,6 @@
 var app = angular.module("myApp", []);
 
-app.controller("IndexCtrl", function($scope, $http) {
+app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.pageSize = 20;
   $scope.currentPage = 0;
   $scope.pageCount = 0;
@@ -51,23 +51,30 @@ app.controller("IndexCtrl", function($scope, $http) {
   }
 
   $scope.authenticate = function() {
-    console.log("authenticate");
-    var ref = new Firebase("https://vivid-torch-9223.firebaseio.com");
-    if (!$scope.isAuthenticated()) {
-      ref.authWithOAuthPopup("facebook", function authHandler(error, authData) {
-        if (error) {
-          console.log("Login Failed!", error);
-        } else {
-          console.log("Authenticated successfully with payload:", authData);
-          $scope.authData = authData;
-        }
-      });
-    }
+    return $q(function(resolve, reject){
+      console.log("Authenticate...");
+      
+      var ref = new Firebase("https://vivid-torch-9223.firebaseio.com");
+      if (!$scope.isAuthenticated()) {
+        ref.authWithOAuthPopup("facebook", function authHandler(error, authData) {
+          if (error) {
+            reject("Login Failed!", error);
+          } else {
+            console.log("Authenticated successfully with payload:", authData);
+            $scope.authData = authData;
+            resolve(authData);
+          }
+        });
+      } else {
+        resolve($scope.authData);
+      }
+    });
   }
 
   $scope.unauthenticate = function() {
     var ref = new Firebase("https://vivid-torch-9223.firebaseio.com");
     ref.unauth();
+    $scope.authData = null;
   }
 
   $scope.goToPrevPage = function() {
@@ -95,20 +102,23 @@ app.controller("IndexCtrl", function($scope, $http) {
   }
 
   $scope.report = function(budget) {
-    $scope.authenticate();
-    var myDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/budgets/' + budget[0]);
-    myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName, content: $scope.reportDescription});
+    $scope.authenticate().then(function() {
+      console.log("Uplaoding data...");
 
-    var reportsCountRef = new Firebase('https://vivid-torch-9223.firebaseio.com/reportsCount/' + budget[0]);
-    reportsCountRef.transaction(function (current_value) {
-      var res = (current_value || 0) + 1;
-      return res;
-    }, function(error, committed, snapshot) {
-      if (committed) {
-        $scope.$apply(function() {
-          budget[17] = snapshot.val();
-        });
-      }
+      var myDataRef = new Firebase('https://vivid-torch-9223.firebaseio.com/budgets/' + budget[0]);
+      myDataRef.push({id: $scope.authData.uid, name: $scope.authData.facebook.displayName, content: $scope.reportDescription});
+
+      var reportsCountRef = new Firebase('https://vivid-torch-9223.firebaseio.com/reportsCount/' + budget[0]);
+      reportsCountRef.transaction(function (current_value) {
+        var res = (current_value || 0) + 1;
+        return res;
+      }, function(error, committed, snapshot) {
+        if (committed) {
+          $scope.$apply(function() {
+            budget[17] = snapshot.val();
+          });
+        }
+      });
     });
   };
 

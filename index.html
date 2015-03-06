@@ -54,7 +54,7 @@
       <div class="container-fluid">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
+            <span class="sr-only">Tampilkan/sembunyikan navigasi</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -65,7 +65,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/">Data RAPBD DKI</a></li>
             <li><a href="/treemap.html">Visualisasi anggaran</a></li>
-            <li><a ng-click="unauthenticate()" href="" ng-if="authData">Sign out</a></li>
+            <li><a ng-click="unauthenticate()" href="" ng-if="authData">Keluar</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -81,7 +81,7 @@
             <a href="treemap.html">Lihat visualisasi usulan/tambahan oleh DPRD</a>
           </div>
           <div class="pull-right">
-            <b>Source code: </b><a href="https://github.com/Pantau-RAPBD/pantau-rapbd.github.io">https://github.com/Pantau-RAPBD/pantau-rapbd.github.io</a>
+            <b>Kode sumber: </b><a href="https://github.com/Pantau-RAPBD/pantau-rapbd.github.io">https://github.com/Pantau-RAPBD/pantau-rapbd.github.io</a>
             <br/>
           </div>
         </div>
@@ -89,11 +89,11 @@
       <div>
         <nav ng-cloak>
           <ul class="pager">
-            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Previous</a></li>
-            Page {{currentPage + 1}}/{{pageCount}}
-            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Next</a></li>
-            <input style="margin-left:20px; width:60px" type="text" placeholder="Page no" ng-model="goToPageNo"/>
-            <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Go</buton>
+            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Sebelumnya</a></li>
+            Hlm {{currentPage + 1}}/{{pageCount}}
+            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Berikutnya</a></li>
+            <input style="margin-left:20px; width:60px" type="text" placeholder="Ke Hlm" ng-model="goToPageNo"/>
+            <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Buka</buton>
           </ul>
         </nav>
         <table class="table table-condensed table-striped" style="width:2800px" ng-cloak>
@@ -111,7 +111,7 @@
             </tr>
             <tr style="background:#E8E8E8">
               <th>
-                Comments
+                Komentar
                 <a href="" ng-click="toggleSort(17)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != 17, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == 17,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == 17}"/></a>
               </th> 
               <th ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
@@ -124,11 +124,11 @@
           <tbody>
             <tr ng-repeat="budget in displayedBudgets">
               <td>
-                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reportModal" ng-click="updateToBeReportedBudget(budget)">Comment</button>
+                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reportModal" ng-click="updateToBeReportedBudget(budget)">Komentar</button>
                 <br/>
                 <small>
-                  <a ng-click="showReports(budget)" href="" ng-if="budget[17] && selectedReportsBudgetId != budget[0]">{{budget[17]}} comments</a>
-                  <a ng-click="hideReports()" href="" ng-if="selectedReports && selectedReportsBudgetId == budget[0]">Hide comments</a>
+                  <a ng-click="showReports(budget)" href="" ng-if="budget[17] && selectedReportsBudgetId != budget[0]">{{budget[17]}} komentar</a>
+                  <a ng-click="hideReports()" href="" ng-if="selectedReports && selectedReportsBudgetId == budget[0]">Sembunyikan</a>
                 </small>
               </td>
               <td ng-if="selectedReportsBudgetId != budget[0]" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
@@ -145,11 +145,11 @@
         </table>
         <nav ng-cloak>
           <ul class="pager">
-            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Previous</a></li>
-            Page {{currentPage + 1}}/{{pageCount}}
-            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Next</a></li>
-            <input style="margin-left:20px; width:60px" type="text" placeholder="Page no" ng-model="goToPageNo"/>
-            <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Go</buton>
+            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Sebelumnya</a></li>
+            Hlm {{currentPage + 1}}/{{pageCount}}
+            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Berikutnya</a></li>
+            <input style="margin-left:20px; width:60px" type="text" placeholder="Ke Hlm" ng-model="goToPageNo"/>
+            <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Buka</buton>
           </ul>
         </nav>
       </div>
@@ -170,14 +170,14 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <b>New comment</b>
+            <b>Komentar baru</b>
           </div>
           <div class="modal-body">
             <div class="form-group">
               <label>Komentar Anda</label>
               <textarea class="form-control" rows="12" required ng-model="reportDescription"></textarea>
             </div>
-            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reportModal" ng-click="report(toBeReportedBudget)">Submit</button></td>
+            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#reportModal" ng-click="report(toBeReportedBudget)">Kirim</button></td>
           </div>
         </div>
       </div>
@@ -187,14 +187,14 @@
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <b>All comments</b>
+            <b>Semua komentar</b>
           </div>
           <div class="modal-body">
             <table class="table table-striped table-condensed">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Comment</th>
+                  <th>Nama</th>
+                  <th>Komentar</th>
                 </tr>
               </thead>
               <tbody>

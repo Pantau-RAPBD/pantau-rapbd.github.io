@@ -1,6 +1,6 @@
 var app = angular.module("myApp", []);
 
-app.controller("IndexCtrl", function($scope, $http, $q) {
+app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.pageSize = 50;
   $scope.currentPage = 0;
   $scope.pageCount = 0;
@@ -12,7 +12,7 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
   $scope.reportDescription = "";
   $scope.sortCriteria = [17, 'desc'];
   $scope.headers = ["No", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Nama Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
-  $scope.headers_width = ['50px', null, '200px', '50px', null, '400px', null, null, null, null, null, null, '250px', '400px', null]
+  $scope.headers_width = ['50px', null, '200px', '50px', null, '400px', null, null, null, null, null, null, '250px', '400px', '80px', null, null]
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
@@ -22,16 +22,16 @@ app.controller("IndexCtrl", function($scope, $http, $q) {
       $scope.budgets = _.rest(data);
       ref.child("reportsCount").once("value", function(rc) {
         var reportsCount = rc.val();
-        $scope.budgets = _.each($scope.budgets, function(budget) {
-          if (budget[0] in reportsCount) {
-            $scope.$apply(function() {
-              budget[17] = reportsCount[budget[0]];
-            })
-          } else {
-            budget.reportsCount = 0;
-          }
-        });
+
         $scope.$apply(function() {
+          $scope.budgets = _.each($scope.budgets, function(budget) {
+            if (budget[0] in reportsCount) {
+              budget[17] = reportsCount[budget[0]];
+            } else {
+              budget.reportsCount = 0;
+            }
+            budget[14] = $filter('number')(budget[14],4);
+          });
           $scope.refreshDisplayedBudgets(false);
         })
       });

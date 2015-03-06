@@ -8,7 +8,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.budgets = [];
   $scope.authData = null;
   $scope.toBeReportedBudget = null;
-  $scope.selectedReports = [];
+  $scope.selectedReports = null;
   $scope.reportDescription = "";
   $scope.sortCriteria = [17, 'desc'];
   $scope.headers = ["No", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Nama Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
@@ -169,12 +169,21 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.showReports = function(budget) {
     var myDataRef = ref.child('budgets/' + budget[0]);
     myDataRef.once("value", function(data) {
-      console.log(data);
+      console.log(data.val());
       $scope.$apply(function() {
         $scope.selectedReports = data.val(); 
-        $("#displayReportsModal").modal('show');
+        $scope.selectedReportsBudgetId = budget[0];
+
+        console.log($scope.selectedReports);
+        console.log($scope.selectedReportsBudgetId);
+        // $("#displayReportsModal").modal('show');
       });
     })
+  };
+
+  $scope.hideReports = function() {
+    $scope.selectedReports = null;
+    $scope.selectedReportsBudgetId = null;
   }
 
   $scope.updateToBeReportedBudget = function(budget) {

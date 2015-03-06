@@ -108,10 +108,19 @@
               <td>
                 <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reportModal" ng-click="updateToBeReportedBudget(budget)">Comment</button>
                 <br/>
-                <small><a ng-click="showReports(budget)" href="#" ng-if="budget[17]">{{budget[17]}} comments</a></small>
+                <small>
+                  <a ng-click="showReports(budget)" href="#" ng-if="budget[17] && selectedReportsBudgetId != budget[0]">{{budget[17]}} comments</a>
+                  <a ng-click="hideReports()" href="#" ng-if="selectedReports && selectedReportsBudgetId == budget[0]">Hide comments</a>
+                </small>
               </td>
-              <td ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
+              <td ng-if="selectedReportsBudgetId != budget[0]" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
                 {{budget[i]}} 
+              </td>
+              <td ng-if="selectedReports && selectedReportsBudgetId == budget[0]" colspan="7" class="with-left-border">
+                <p ng-repeat="report in selectedReports">
+                  <b>{{report.name}}:</b>
+                  {{report.content}}
+                </p>
               </td>
             </tr>
           </tbody>

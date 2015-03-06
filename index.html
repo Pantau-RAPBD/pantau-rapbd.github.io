@@ -79,8 +79,7 @@
             <br/>
             <b>Sumber data primer: </b><a href="http://jakarta.go.id/v2/news/2015/03/rapbd-pemprov-dki-dan-dprd#.VPLDDCwxs7w">http://jakarta.go.id/v2/news/2015/03/rapbd-pemprov-dki-dan-dprd#.VPLDDCwxs7w</a><br/>
             <a href="treemap.html">Lihat visualisasi usulan/tambahan oleh DPRD</a>
-          </div>
-          <div class="pull-right">
+            <br/>
             <b>Source code: </b><a href="https://github.com/Pantau-RAPBD/pantau-rapbd.github.io">https://github.com/Pantau-RAPBD/pantau-rapbd.github.io</a>
             <br/>
           </div>
@@ -89,10 +88,10 @@
       <div>
         <nav ng-cloak>
           <ul class="pager">
-            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Sebelumnya</a></li>
+            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">&lt; Sebelumnya</a></li>
             Halaman {{currentPage + 1}}/{{pageCount}}
-            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Berikutnya</a></li>
-            <input style="margin-left:20px; width:100px" type="text" placeholder="Ke Halaman" ng-model="goToPageNo"/>
+            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Berikutnya &gt;</a></li>
+            <input style="margin-left:10px; width:100px" type="text" placeholder="Ke Halaman" ng-model="goToPageNo"/>
             <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Buka</buton>
           </ul>
         </nav>
@@ -145,10 +144,10 @@
         </table>
         <nav ng-cloak>
           <ul class="pager">
-            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Sebelumnya</a></li>
+            <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">&lt; Sebelumnya</a></li>
             Halaman {{currentPage + 1}}/{{pageCount}}
-            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Berikutnya</a></li>
-            <input style="margin-left:20px; width:100px" type="text" placeholder="Ke Halaman" ng-model="goToPageNo"/>
+            <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Berikutnya &gt;</a></li>
+            <input style="margin-left:10px; width:100px" type="text" placeholder="Ke Halaman" ng-model="goToPageNo"/>
             <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Buka</buton>
           </ul>
         </nav>

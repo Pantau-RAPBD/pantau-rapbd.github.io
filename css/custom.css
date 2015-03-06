@@ -14,3 +14,7 @@ table{
 th, td {
     overflow: hidden;
 }
+
+.pager {
+	text-align: left;
+}

@@ -13,6 +13,7 @@ table{
 
 th, td {
     overflow: hidden;
+    word-wrap: break-word;
 }
 
 .pager {

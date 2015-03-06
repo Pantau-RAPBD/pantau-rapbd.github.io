@@ -30,6 +30,9 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
             } else {
               budget.reportsCount = 0;
             }
+
+            if (budget[15]) budget[15] = budget[15].replace(/\//g," / ");
+            if (budget[10]) budget[10] = budget[10].replace(/\//g," / ");
             budget[14] = $filter('number')(budget[14],4);
           });
           $scope.refreshDisplayedBudgets(false);

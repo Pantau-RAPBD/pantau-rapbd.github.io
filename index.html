@@ -65,7 +65,7 @@
           <ul class="nav navbar-nav">
             <li><a href="/">Data RAPBD DKI</a></li>
             <li><a href="/treemap.html">Visualisasi anggaran</a></li>
-            <li><a ng-click="unauthenticate()" href="" ng-if="authData">Keluar</a></li>
+            <li><a ng-click="unauthenticate()" href="" ng-if="authData">Sign out</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -81,7 +81,7 @@
             <a href="treemap.html">Lihat visualisasi usulan/tambahan oleh DPRD</a>
           </div>
           <div class="pull-right">
-            <b>Kode sumber: </b><a href="https://github.com/Pantau-RAPBD/pantau-rapbd.github.io">https://github.com/Pantau-RAPBD/pantau-rapbd.github.io</a>
+            <b>Source code: </b><a href="https://github.com/Pantau-RAPBD/pantau-rapbd.github.io">https://github.com/Pantau-RAPBD/pantau-rapbd.github.io</a>
             <br/>
           </div>
         </div>
@@ -90,9 +90,9 @@
         <nav ng-cloak>
           <ul class="pager">
             <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Sebelumnya</a></li>
-            Hlm {{currentPage + 1}}/{{pageCount}}
+            Halaman {{currentPage + 1}}/{{pageCount}}
             <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Berikutnya</a></li>
-            <input style="margin-left:20px; width:60px" type="text" placeholder="Ke Hlm" ng-model="goToPageNo"/>
+            <input style="margin-left:20px; width:100px" type="text" placeholder="Ke Halaman" ng-model="goToPageNo"/>
             <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Buka</buton>
           </ul>
         </nav>
@@ -128,7 +128,7 @@
                 <br/>
                 <small>
                   <a ng-click="showReports(budget)" href="" ng-if="budget[17] && selectedReportsBudgetId != budget[0]">{{budget[17]}} komentar</a>
-                  <a ng-click="hideReports()" href="" ng-if="selectedReports && selectedReportsBudgetId == budget[0]">Sembunyikan</a>
+                  <a ng-click="hideReports()" href="" ng-if="selectedReports && selectedReportsBudgetId == budget[0]">Sembunyikan komentar</a>
                 </small>
               </td>
               <td ng-if="selectedReportsBudgetId != budget[0]" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
@@ -146,9 +146,9 @@
         <nav ng-cloak>
           <ul class="pager">
             <li><a href="" ng-hide="currentPage == 0" ng-click="goToPrevPage()">Sebelumnya</a></li>
-            Hlm {{currentPage + 1}}/{{pageCount}}
+            Halaman {{currentPage + 1}}/{{pageCount}}
             <li><a href="" ng-hide="currentPage == pageCount - 1" ng-click="goToNextPage()">Berikutnya</a></li>
-            <input style="margin-left:20px; width:60px" type="text" placeholder="Ke Hlm" ng-model="goToPageNo"/>
+            <input style="margin-left:20px; width:100px" type="text" placeholder="Ke Halaman" ng-model="goToPageNo"/>
             <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Buka</buton>
           </ul>
         </nav>

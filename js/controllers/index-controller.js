@@ -16,6 +16,30 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
+  $http.get('data.json').
+    success(function(data, status, headers, config) {
+      // console.log(data);
+      $scope.budgets = _.rest(data);
+      ref.child("reportsCount").once("value", function(rc) {
+        var reportsCount = rc.val();
+
+        $scope.$apply(function() {
+          $scope.budgets = _.each($scope.budgets, function(budget) {
+            if (budget[0] in reportsCount) {
+              budget[17] = reportsCount[budget[0]];
+            } else {
+              budget.reportsCount = 0;
+            }
+            budget[14] = $filter('number')(budget[14],4);
+          });
+          $scope.refreshDisplayedBudgets(false);
+        })
+      });
+      $scope.refreshDisplayedBudgets(false);
+    }).
+    error(function(data, status, headers, config) {
+      // log error
+    });
 
   $scope.isAuthenticated = function() {
     if ($scope.authData) return true;
@@ -178,22 +202,4 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
     }
     $scope.refreshDisplayedBudgets(reverseOnly);
   }
-
-  $scope.budgets = _.rest(data);
-  ref.child("reportsCount").once("value", function(rc) {
-    var reportsCount = rc.val();
-
-    $scope.$apply(function() {
-      $scope.budgets = _.each($scope.budgets, function(budget) {
-        if (budget[0] in reportsCount) {
-          budget[17] = reportsCount[budget[0]];
-        } else {
-          budget.reportsCount = 0;
-        }
-        budget[14] = $filter('number')(budget[14],4);
-      });
-      $scope.refreshDisplayedBudgets(false);
-    })
-  });
-  $scope.refreshDisplayedBudgets(false);
 });

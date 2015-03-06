@@ -99,7 +99,7 @@
         <table class="table table-condensed table-striped" style="width:2800px" ng-cloak>
           <thead>
             <tr style="visibility:">
-              <th></th>
+              <th style="width:100px"/>
               <th ng-repeat="header in headers track by $index" ng-style="{'width': headers_width[$index]}">
               </th>
             </tr>
@@ -110,7 +110,7 @@
               <th class="with-left-border" colspan="4">Versi Pemda yang nama kegiatannya mirip</th>
             </tr>
             <tr style="background:#E8E8E8">
-              <th>
+              <th style="width:100px">
                 Comments
                 <a href="" ng-click="toggleSort(17)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != 17, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == 17,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == 17}"/></a>
               </th> 
@@ -123,7 +123,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="budget in displayedBudgets">
-              <td>
+              <td style="width:100px">
                 <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#reportModal" ng-click="updateToBeReportedBudget(budget)">Comment</button>
                 <br/>
                 <small>

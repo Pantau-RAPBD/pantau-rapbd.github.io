@@ -106,13 +106,18 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
       var numTypeColumns = [0, 6, 7, 8, 9, 10, 11, 14, 15, 16];
       var needToConvertToInt = _.contains(numTypeColumns, $scope.sortCriteria[0])
 
+      // HACK!
+      if ($scope.sortCriteria[1] == 'desc') {
+        $scope.budgets = $scope.budgets.reverse();
+      }
+
       var sortIndex = $scope.sortCriteria[0]
       $scope.budgets = _.sortBy($scope.budgets, function(b) { 
         if (needToConvertToInt) {
-          if (b[sortIndex] == null) return -b[0];
+          if (b[sortIndex] == null) return 0;
           var converted = parseFloat(b[sortIndex].replace(/,/g,""));
           if (isNaN(converted)) {
-             return -b[0];
+             return 0;
           }
           return converted;
         } else {
@@ -125,9 +130,8 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
         $scope.budgets = $scope.budgets.reverse();
       }
     }
-
     $scope.filteredBudgets = _.filter($scope.budgets, function(data) {
-      res = true;
+      var res = true;
       for (var i = 16; i >= 0; i--) {
         if ($scope.filters[i]) {
           if (data[i]) {
@@ -141,6 +145,11 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
     });
 
     $scope.pageCount = Math.ceil(($scope.filteredBudgets.length * 1.0)/ $scope.pageSize);
+    if ($scope.currentPage >= $scope.pageCount) {
+      if ($scope.pageCount > 0) {
+        $scope.currentPage = $scope.pageCount - 1;
+      }
+    }
     $scope.displayedBudgets = $scope.filteredBudgets.slice($scope.currentPage * $scope.pageSize, $scope.currentPage * $scope.pageSize + $scope.pageSize);
   }
 

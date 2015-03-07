@@ -12,7 +12,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.reportDescription = "";
   $scope.sortCriteria = [17, 'desc'];
   $scope.headers = ["No", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Nama Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
-  $scope.headers_width = ['50px', null, '200px', '50px', null, '400px', null, null, null, null, null, null, '250px', '400px', '80px', null, null]
+  $scope.headers_width = ['50px', null, '200px', '60px', null, '400px', null, null, null, null, null, null, '250px', '400px', '80px', null, null]
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");

@@ -98,6 +98,7 @@
         <div>
           <button ng-if="!detailedColumnsShown" class="btn btn-success" ng-click="showDetailedColumns(true)">Tampilkan kolom yang lebih detail</button>
           <button ng-if="detailedColumnsShown" class="btn btn-warning" ng-click="showDetailedColumns(false)">Sembunyikan kolom yang lebih detail</button>
+          <b style="margin-left:10px">Total anggaran yang dikomentari: {{totalReports}}</b>
         </div>
         <table class="table table-condensed table-striped" ng-style="{'width': detailedColumnsShown && '2800px' || !detailedColumnsShown && '1000px'}" ng-cloak>
           <thead>

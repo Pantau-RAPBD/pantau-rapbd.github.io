@@ -17,6 +17,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
 
   $scope.isDetailedColumns = [false, false, true, true, true, true, false, false, false, false, false, false, false, false, false, false]
   $scope.detailedColumnsShown = false;
+  $scope.totalReports = 0;
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
   $http.get('data.json').
@@ -25,6 +26,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
       $scope.budgets = _.rest(data);
       ref.child("reportsCount").once("value", function(rc) {
         var reportsCount = rc.val();
+        $scope.totalReports = _.reduce(reportsCount, function(memo, num) { return memo + 1; });
 
         $scope.$apply(function() {
           $scope.budgets = _.each($scope.budgets, function(budget) {

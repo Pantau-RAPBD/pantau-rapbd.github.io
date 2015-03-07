@@ -27,7 +27,7 @@
     <script src="js/ie-emulation-modes-warning.js"></script>
     <script src="js/angular.min.js"></script>
     <script src="js/underscore.min.js"></script>
-    <script src="js/controllers/index-controller.js?v=1"></script>
+    <script src="js/controllers/index-controller.js?v=2"></script>
     <script src='https://cdn.firebase.com/js/client/2.0.4/firebase.js'></script>
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53bbbc685826fb13" async="async"></script>
 
@@ -95,7 +95,7 @@
             <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Buka</buton>
           </ul>
         </nav>
-        <div>
+        <div ng-cloak>
           <button ng-if="!detailedColumnsShown" class="btn btn-success" ng-click="showDetailedColumns(true)">Tampilkan kolom yang lebih detail</button>
           <button ng-if="detailedColumnsShown" class="btn btn-warning" ng-click="showDetailedColumns(false)">Sembunyikan kolom yang lebih detail</button>
           <b style="margin-left:10px">Total anggaran yang dikomentari: {{totalReports}}</b>

@@ -12,8 +12,11 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.reportDescription = "";
   $scope.sortCriteria = [17, 'desc'];
   $scope.headers = ["No", "Nama Kegiatan", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
-  $scope.headers_width = ['50px', '400px', null, '200px', '60px', null, null, null, null, null, null, null, '250px', '400px', '80px', null, null]
+  $scope.headers_width = ['50px', '250px', '120px', '200px', '60px', '120px', '120px', '120px', '120px', '120px', '120px', '120px', '250px', '250px', '80px', '120px', '120px']
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
+
+  $scope.isDetailedColumns = [false, false, true, true, true, true, false, false, false, false, false, false, false, false, false, false]
+  $scope.detailedColumnsShown = false;
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
   $http.get('data.json').
@@ -218,5 +221,9 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
       $scope.sortCriteria[1] = 'asc';
     }
     $scope.refreshDisplayedBudgets(reverseOnly);
+  }
+
+  $scope.showDetailedColumns = function(flag) {
+    $scope.detailedColumnsShown = flag;
   }
 });

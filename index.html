@@ -95,16 +95,20 @@
             <buton class="btn btn-primary btn-sm" ng-click="goToPage()">Buka</buton>
           </ul>
         </nav>
-        <table class="table table-condensed table-striped" style="width:2800px" ng-cloak>
+        <div>
+          <button ng-if="!detailedColumnsShown" class="btn btn-success" ng-click="showDetailedColumns(true)">Tampilkan kolom yang lebih detail</button>
+          <button ng-if="detailedColumnsShown" class="btn btn-warning" ng-click="showDetailedColumns(false)">Sembunyikan kolom yang lebih detail</button>
+        </div>
+        <table class="table table-condensed table-striped" ng-style="{'width': detailedColumnsShown && '2800px' || !detailedColumnsShown && '1000px'}" ng-cloak>
           <thead>
             <tr style="visibility:">
               <th style="width:100px"/>
-              <th ng-repeat="header in headers track by $index" ng-style="{'width': headers_width[$index]}">
+              <th ng-hide="!detailedColumnsShown && isDetailedColumns[$index]" ng-repeat="header in headers track by $index" ng-style="{'width': headers_width[$index]}">
               </th>
             </tr>
             <tr style="background:#B8B8B8">
               <th></th>
-              <th class="with-left-border" colspan="10">Versi DPRD</th>
+              <th class="with-left-border" colspan="{{!detailedColumnsShown && 6 || detailedColumnsShown && 10}}">Versi DPRD</th>
               <th class="with-left-border" colspan="3">Versi Pemda</th>
               <th class="with-left-border" colspan="4">Versi Pemda yang nama kegiatannya mirip</th>
             </tr>
@@ -113,7 +117,7 @@
                 Komentar
                 <a href="" ng-click="toggleSort(17)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != 17, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == 17,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == 17}"/></a>
               </th> 
-              <th ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
+              <th ng-hide="!detailedColumnsShown && isDetailedColumns[$index]" ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
                 {{headers[$index]}}
                 <a href="" ng-click="toggleSort($index)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != $index, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == $index,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == $index}"/></a>
                 <input type="text" style="width:100%" ng-change="refreshDisplayedBudgets(false)" ng-model="filters[$index]"/>
@@ -130,7 +134,7 @@
                   <a ng-click="hideReports()" href="" ng-if="selectedReports && selectedReportsBudgetId == budget[0]">Sembunyikan komentar</a>
                 </small>
               </td>
-              <td ng-if="selectedReportsBudgetId != budget[0]" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
+              <td ng-hide="!detailedColumnsShown && isDetailedColumns[$index]" ng-if="selectedReportsBudgetId != budget[0]" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
                 {{budget[i]}} 
               </td>
               <td ng-if="selectedReports && selectedReportsBudgetId == budget[0]" colspan="7" class="with-left-border">

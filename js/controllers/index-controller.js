@@ -11,8 +11,8 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.selectedReports = null;
   $scope.reportDescription = "";
   $scope.sortCriteria = [17, 'desc'];
-  $scope.headers = ["No", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Nama Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
-  $scope.headers_width = ['50px', null, '200px', '60px', null, '400px', null, null, null, null, null, null, '250px', '400px', '80px', null, null]
+  $scope.headers = ["No", "Nama Kegiatan", "Kode SKPD", "Nama SKPD", "Komisi", "Kode Kegiatan", "Pagu", "Tambah", "Kurang", "Hasil Pembahasan", "Hasil", "Selisih dengan versi DPRD", "Flag", "Nama Kegiatan", "% kemiripan", "Hasil", "Selisih dengan versi DPRD"];
+  $scope.headers_width = ['50px', '400px', null, '200px', '60px', null, null, null, null, null, null, null, '250px', '400px', '80px', null, null]
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
@@ -33,6 +33,11 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
 
             if (budget[15]) budget[15] = budget[15].replace(/\//g," / ");
             if (budget[10]) budget[10] = budget[10].replace(/\//g," / ");
+            // move index 5 to 1
+            budget.splice(1, 0, budget[5]);
+            budget.splice(6, 1);
+            
+
             budget[14] = $filter('number')(budget[14],4);
           });
           $scope.refreshDisplayedBudgets(false);

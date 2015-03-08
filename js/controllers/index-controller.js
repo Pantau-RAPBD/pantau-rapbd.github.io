@@ -24,6 +24,30 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
     success(function(data, status, headers, config) {
       // console.log(data);
       $scope.budgets = _.rest(data);
+      _.each($scope.budgets, function(budget) {
+        if (budget[15]) budget[15] = budget[15].replace(/\//g," / ");
+        if (budget[10]) budget[10] = budget[10].replace(/\//g," / ");
+        // move index 5 to 1
+        budget.splice(1, 0, budget[5]);
+        budget.splice(6, 1);
+        
+        budget[14] = $filter('number')(budget[14],4);
+        budget[18] = 0;
+      });
+
+      ref.child("votesCount").once("value", function(rc) {
+        var votesCount = rc.val();
+        if (votesCount) {
+          $scope.$apply(function() {
+            $scope.budgets = _.each($scope.budgets, function(budget) {
+              if (budget[0] in votesCount) {
+                budget[18] = votesCount[budget[0]];
+              }
+            });
+          });
+        }
+      });
+
       ref.child("reportsCount").once("value", function(rc) {
         var reportsCount = rc.val();
         $scope.totalReports = _.reduce(reportsCount, function(memo, num) { return memo + 1; });
@@ -32,18 +56,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
           $scope.budgets = _.each($scope.budgets, function(budget) {
             if (budget[0] in reportsCount) {
               budget[17] = reportsCount[budget[0]];
-            } else {
-              budget.reportsCount = 0;
             }
-
-            if (budget[15]) budget[15] = budget[15].replace(/\//g," / ");
-            if (budget[10]) budget[10] = budget[10].replace(/\//g," / ");
-            // move index 5 to 1
-            budget.splice(1, 0, budget[5]);
-            budget.splice(6, 1);
-            
-
-            budget[14] = $filter('number')(budget[14],4);
           });
           $scope.refreshDisplayedBudgets(false);
         })
@@ -187,6 +200,40 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
       });
     });
   };
+
+  var updateVotesCount = function(budget, delta) {
+    var votesCountRef = ref.child('votesCount/' + budget[0]);
+    votesCountRef.transaction(function (current_value) {
+      var res = (current_value || 0) + delta;
+      return res;
+    }, function(error, committed, snapshot) {
+      if (committed) {
+        $scope.$apply(function() {
+          budget[18] = snapshot.val();
+        });
+      }
+    });
+  };
+
+  $scope.vote = function(budget, value) {
+    $scope.authenticate().then(function() {
+      console.log("Uploading vote...");
+
+      var myDataRef = ref.child("votes/" + budget[0]);
+      myDataRef.once("value", function(votes) {
+        if (votes.hasChild($scope.authData.uid)) {
+          myDataRef.child("/" + $scope.authData.uid).once("value", function(data) {
+            var delta = value - data.val();
+            myDataRef.child("/" + $scope.authData.uid).set(value);
+            updateVotesCount(budget, delta);
+          });
+        } else {
+          myDataRef.child("/" + $scope.authData.uid).set(value);
+          updateVotesCount(budget, value);
+        }
+      })
+    });
+  }
 
   $scope.showReports = function(budget) {
     var myDataRef = ref.child('budgets/' + budget[0]);

@@ -136,7 +136,16 @@
                 </small>
               </td>
               <td ng-hide="!detailedColumnsShown && isDetailedColumns[$index]" ng-if="selectedReportsBudgetId != budget[0]" ng-repeat="i in [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
-                {{budget[i]}} 
+                {{budget[i]}}
+                <div ng-if="i == 1">
+                  <button class="btn btn-xs btn-primary" ng-click="vote(budget, 1)">
+                    Pantas
+                  </button>
+                  <span class="label" ng-class="{'label-danger': budget[18]<0, 'label-success': budget[18]>0, 'label-default': budget[18]==0}">{{budget[18]}}</span>
+                  <button class="btn btn-xs btn-warning" ng-click="vote(budget, -1)">
+                    Tidak pantas
+                  </button>
+                </div>
               </td>
               <td ng-if="selectedReports && selectedReportsBudgetId == budget[0]" colspan="7" class="with-left-border">
                 <p ng-repeat="report in selectedReports">

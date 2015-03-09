@@ -229,8 +229,12 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
         if (votes.hasChild($scope.authData.uid)) {
           myDataRef.child("/" + $scope.authData.uid).once("value", function(data) {
             var delta = value - data.val();
-            myDataRef.child("/" + $scope.authData.uid).set(value);
-            updateVotesCount(budget, delta);
+            if (delta == 0) {
+              alert("Anda sudah memilih yang sama sebelumnya.");
+            } else {
+              myDataRef.child("/" + $scope.authData.uid).set(value);
+              updateVotesCount(budget, delta);
+            }
           });
         } else {
           myDataRef.child("/" + $scope.authData.uid).set(value);

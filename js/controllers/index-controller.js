@@ -15,7 +15,7 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.headers_width = ['50px', '250px', '120px', '200px', '60px', '120px', '120px', '120px', '120px', '120px', '120px', '120px', '250px', '250px', '80px', '120px', '120px']
   $scope.filters = [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null]
 
-  $scope.isDetailedColumns = [false, false, true, true, true, true, false, false, false, false, false, false, false, false, false, false]
+  $scope.isDetailedColumns = [false, false, true, false, true, true, false, false, false, false, false, false, false, false, false, false]
   $scope.detailedColumnsShown = false;
   $scope.totalReports = 0;
 

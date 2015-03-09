@@ -139,11 +139,11 @@
                 {{budget[i]}}
                 <div ng-if="i == 1">
                   <button class="btn btn-xs btn-primary" ng-click="vote(budget, 1)">
-                    Pantas
+                    Like
                   </button>
                   <span class="label" ng-class="{'label-danger': budget[18]<0, 'label-success': budget[18]>0, 'label-default': budget[18]==0}">{{budget[18]}}</span>
                   <button class="btn btn-xs btn-warning" ng-click="vote(budget, -1)">
-                    Tidak pantas
+                    Dislike
                   </button>
                 </div>
               </td>

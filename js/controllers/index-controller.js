@@ -147,6 +147,11 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
           }
           return converted;
         } else {
+          if (sortIndex == 17) {
+            var val = b[17] || 0;
+            return val + Math.abs(b[18]) * 0.2;
+          }
+
           if (b[sortIndex] == null) return "";
           return b[sortIndex];
         }

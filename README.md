@@ -1,14 +1,18 @@
 # Pantau RAPBD
 
-Technologies used:
 
-  - Plain HTML
-  - AngularJS
-  - FireBase
+## Technologies
 
 No server side technology is used, intended to be easily improved by anyone with JS + HTML skills.
 
-To run this, you just need to register on http://www.firebase.com to get your own development server. Then follow the instruction in the first section of https://www.firebase.com/docs/web/guide/login/facebook.html. And replace the following line in `index-controller.js` with your server URL:
+  - HTML
+  - AngularJS
+  - FireBase
+
+## Getting started
+
+To run this, you just need to register on [firebase](http://www.firebase.com) to get your own development server. 
+Then follow the instruction in the first section of [guide](https://www.firebase.com/docs/web/guide/login/facebook.html). And replace the following line in `index-controller.js` with your server URL:
 
     var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
 

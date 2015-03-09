@@ -149,7 +149,7 @@
               </td>
               <td ng-if="selectedReports && selectedReportsBudgetId == budget[0]" colspan="7" class="with-left-border">
                 <p ng-repeat="report in selectedReports">
-                  <b>{{report.name}}:</b>
+                <b><a ng-href="http://www.facebook.com/{{report.user_id.substring(9)}}">{{report.name}}</a></b>
                   {{report.content}}
                 </p>
               </td>

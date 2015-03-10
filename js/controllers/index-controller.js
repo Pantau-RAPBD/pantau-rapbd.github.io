@@ -1,6 +1,6 @@
 var app = angular.module("myApp", []);
 
-app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
+app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
   $scope.pageSize = 50;
   $scope.currentPage = 0;
   $scope.pageCount = 0;
@@ -18,6 +18,12 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
   $scope.isDetailedColumns = [false, false, true, false, true, true, false, false, false, false, false, false, false, false, false, false]
   $scope.detailedColumnsShown = false;
   $scope.totalReports = 0;
+
+  for (var i = 0; i <= 16; i++) {    
+    if (i in $location.search()) {
+      $scope.filters[i] = $location.search()[i];
+    }
+  }
 
   var ref = new Firebase("https://vivid-torch-9223.firebaseio.com/");
   $http.get('data.json').
@@ -161,9 +167,20 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter) {
         $scope.budgets = $scope.budgets.reverse();
       }
     }
+
+    var pathAppendixes = [];
+    for (var i = 0; i <= 16; i++) {
+      if ($scope.filters[i]) {
+        pathAppendixes.push(i + "=" + $scope.filters[i]);
+        $location.search(i, $scope.filters[i]);
+      } else {
+        $location.search(i, null);
+      }
+    }
+
     $scope.filteredBudgets = _.filter($scope.budgets, function(data) {
       var res = true;
-      for (var i = 16; i >= 0; i--) {
+      for (var i = 0; i <= 16; i++) {
         if ($scope.filters[i]) {
           if (data[i]) {
             res = res & (data[i].toLowerCase().indexOf($scope.filters[i].toLowerCase()) != -1);

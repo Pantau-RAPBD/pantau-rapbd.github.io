@@ -98,6 +98,7 @@
         <div ng-cloak>
           <button ng-if="!detailedColumnsShown" class="btn btn-success" ng-click="showDetailedColumns(true)">Tampilkan kolom yang lebih detail</button>
           <button ng-if="detailedColumnsShown" class="btn btn-warning" ng-click="showDetailedColumns(false)">Sembunyikan kolom yang lebih detail</button>
+          <button ng-if="isFiltered()" class="btn btn-danger" ng-click="clearFilters()">Hapus penyaring</button>
           <b style="margin-left:10px">Total anggaran yang dikomentari: {{totalReports}}</b>
         </div>
         <table class="table table-condensed table-striped" ng-style="{'width': detailedColumnsShown && '2800px' || !detailedColumnsShown && '1000px'}" ng-cloak>
@@ -121,7 +122,9 @@
               <th ng-hide="!detailedColumnsShown && isDetailedColumns[$index]" ng-repeat="header in headers track by $index" ng-class="{'with-left-border': $index==10||$index==13||$index==0}" ng-style="{'width': headers_width[$index]}">
                 {{headers[$index]}}
                 <a href="" ng-click="toggleSort($index)"><span ng-class="{'glyphicon': true, 'glyphicon glyphicon-sort': sortCriteria[0] != $index, 'glyphicon glyphicon-arrow-down': sortCriteria[1] == 'desc' && sortCriteria[0] == $index,'glyphicon glyphicon-arrow-up': sortCriteria[1] == 'asc' && sortCriteria[0] == $index}"/></a>
-                <input type="text" style="width:100%" ng-change="refreshDisplayedBudgets(false)" ng-model="filters[$index]"/>
+                <div class="form-group" ng-class="{'has-success': filters[$index]}">
+                  <input type="text" class="form-control" style="width:100%" ng-change="refreshDisplayedBudgets(false)" ng-model="filters[$index]"/>
+                </div>
               </th>
             </tr>
           </thead>

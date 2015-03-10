@@ -301,4 +301,19 @@ app.controller("IndexCtrl", function($scope, $http, $q, $filter, $location) {
   $scope.showDetailedColumns = function(flag) {
     $scope.detailedColumnsShown = flag;
   }
+
+  $scope.isFiltered = function() {
+    if (_.find($scope.filters, function(e) { if (e) return true; })) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  $scope.clearFilters = function() {
+    for (var i = 0; i <= 16; i++) {    
+      $scope.filters[i] = null;
+    }
+    $scope.refreshDisplayedBudgets();
+  }
 });
